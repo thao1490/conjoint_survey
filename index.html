@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey on Parental Preferences for Children's English Programs</title>
+  <style>
+    :root {
+      --primary: #2b6cb0;
+      --primary-hover: #235891;
+      --primary-soft: rgba(43, 108, 176, 0.08);
+      --primary-border: rgba(43, 108, 176, 0.28);
+      --bg: #f3f6f9;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #526071;
+      --border: #cbd5e1;
+      --accent: #eef3f8;
+      --danger: #b91c1c;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      padding: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 28px 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      border: 1px solid #e2e8f0;
+    }
+    /* Header & Titles */
+    h1 {
+      font-size: 22px;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 18px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+    h2 {
+      font-size: 19px;
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    p {
+      margin-bottom: 14px;
+    }
+    /* Progress Bar */
+    .progress-wrap {
+      margin-bottom: 22px;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #e2e8f0;
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 22px;
+    }
+    .question-label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: var(--text);
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.14);
+    }
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .radio-item {
+      display: flex;
+      align-items: center;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: #ffffff;
+    }
+    .radio-item:hover {
+      background-color: var(--accent);
+      border-color: var(--primary-border);
+    }
+    .radio-item input[type="radio"] {
+      margin-right: 12px;
+      width: 19px;
+      height: 19px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+    .other-input-wrap {
+      margin-top: 8px;
+      display: none;
+    }
+    /* Likert Linear Cards */
+    .likert-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+    .likert-statement {
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    .likert-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .likert-option-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.15s ease;
+    }
+    .likert-option-label:hover {
+      background-color: var(--accent);
+      border-color: var(--primary);
+    }
+    .likert-option-label input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+    /* Conjoint Aligned Comparison Grid (Row-Matched Across Program A & Program B) */
+    .conjoint-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 12px;
+      row-gap: 0;
+      margin: 14px 0 22px 0;
+      align-items: stretch;
+    }
+    .conjoint-cell {
+      background: #ffffff;
+      border-left: 2px solid var(--border);
+      border-right: 2px solid var(--border);
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      min-width: 0;
+      word-wrap: break-word;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .conjoint-cell.cell-header {
+      border-top: 2px solid var(--border);
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding-top: 14px;
+      padding-bottom: 10px;
+    }
+    .conjoint-cell.cell-attr {
+      border-bottom: 1px dashed #e2e8f0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .conjoint-cell.cell-attr-last {
+      border-bottom: none;
+      padding-bottom: 12px;
+    }
+    .conjoint-cell.cell-footer {
+      border-bottom: 2px solid var(--border);
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      padding-top: 8px;
+      padding-bottom: 14px;
+      justify-content: flex-end;
+    }
+    .conjoint-cell.selected {
+      background-color: var(--primary-soft);
+      border-left-color: var(--primary);
+      border-right-color: var(--primary);
+    }
+    .conjoint-cell.cell-header.selected {
+      border-top-color: var(--primary);
+    }
+    .conjoint-cell.cell-footer.selected {
+      border-bottom-color: var(--primary);
+    }
+    .card-header {
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--primary);
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+    }
+    .attr-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 3px;
+    }
+    .attr-val {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.42;
+    }
+    .btn-select {
+      width: 100%;
+      padding: 12px 10px;
+      background-color: #ffffff;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .conjoint-cell.selected .btn-select {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+    /* Action Buttons */
+    .btn-nav-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn {
+      padding: 13px 22px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      flex: 1;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+    }
+    .btn-secondary {
+      background-color: #e2e8f0;
+      color: var(--text);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background-color: #cbd5e1;
+    }
+    /* Info Box */
+    .info-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+    /* Attribute Explanation Clean List */
+    .level-list {
+      list-style-type: none;
+      padding-left: 0;
+      margin-left: 0;
+    }
+    .level-item {
+      margin-bottom: 14px;
+    }
+    .level-title {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 5px;
+      line-height: 1.38;
+    }
+    .level-sub-list {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin-left: 0;
+    }
+    .level-sub-list li {
+      padding: 2px 0;
+      margin-bottom: 3px;
+      font-size: 16px;
+      line-height: 1.42;
+      color: var(--text);
+    }
+    .alert-box {
+      display: none;
+      background-color: #fef2f2;
+      color: var(--danger);
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #fecaca;
+      margin-bottom: 16px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .step-page {
+      display: none;
+    }
+    .step-page.active {
+      display: block;
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 4px;
+      }
+      .container {
+        padding: 14px 8px;
+        border-radius: 8px;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      .conjoint-grid {
+        grid-template-columns: 1fr 1fr;
+        column-gap: 6px;
+        row-gap: 0;
+      }
+      .conjoint-cell {
+        padding: 8px 8px;
+        border-left-width: 1.5px;
+        border-right-width: 1.5px;
+      }
+      .conjoint-cell.cell-header {
+        border-top-width: 1.5px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 10px;
+        padding-bottom: 6px;
+      }
+      .conjoint-cell.cell-attr {
+        padding-top: 7px;
+        padding-bottom: 7px;
+      }
+      .conjoint-cell.cell-footer {
+        border-bottom-width: 1.5px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding-top: 6px;
+        padding-bottom: 10px;
+      }
+      .card-header {
+        font-size: 17px;
+        padding-bottom: 6px;
+      }
+      .attr-name {
+        font-size: 11px;
+        letter-spacing: 0.2px;
+        margin-bottom: 2px;
+      }
+      .attr-val {
+        font-size: 15.5px;
+        line-height: 1.36;
+      }
+      .btn-select {
+        padding: 11px 6px;
+        font-size: 15px;
+      }
+      .level-item {
+        margin-bottom: 12px;
+      }
+      .level-title {
+        font-size: 16.5px;
+        margin-bottom: 4px;
+      }
+      .level-sub-list {
+        padding-left: 18px;
+      }
+      .level-sub-list li {
+        font-size: 16px;
+        line-height: 1.38;
+        padding: 1.5px 0;
+        margin-bottom: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="progressLabel">Introduction</span>
+      <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+  <div class="alert-box" id="alertBox"></div>
+
+  <!-- STEP 0: WELCOME & CONSENT -->
+  <div class="step-page active" id="step0">
+    <h1>Survey on Parental Preferences for Children's English Programs</h1>
+    <p>Dear Parents,</p>
+    <p>My name is Thao, an MBA student at Doshisha University (Japan), currently conducting my graduation research on: <em>"Parental preferences and factors influencing the choice of English language classes for primary school children in the outskirts of Hanoi"</em>.</p>
+    <p>This survey seeks to understand your overall perspectives and criteria when evaluating different English class options for primary school children. Your valuable insights will provide essential empirical data to propose suitable and accessible educational models for local communities.</p>
+    
+    <div class="info-card">
+      <p style="margin-bottom: 8px;"><strong>Survey Information:</strong></p>
+      <ul style="list-style-type: none; padding-left: 0; margin-left: 0;">
+        <li style="margin-bottom: 6px;">⏱️ <strong>Estimated completion time:</strong> Approximately 5 – 7 minutes.</li>
+        <li style="margin-bottom: 0;">🔒 <strong>Data Privacy &amp; Confidentiality:</strong> All responses are strictly anonymous, encrypted, and used exclusively for academic research purposes.</li>
+      </ul>
+    </div>
+    
+    <p>Thank you very much for your valuable time and support!</p>
+    
+    <div class="btn-nav-group">
+      <button class="btn btn-primary" onclick="nextStep(0)">START SURVEY »</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: DEMOGRAPHICS (PART 1) -->
+  <div class="step-page" id="step1">
+    <h2>Part 1: Background Information</h2>
+    
+    <div class="form-group">
+      <label class="question-label" for="q1_district">1. Which district or area in Hanoi are you currently living in?</label>
+      <input type="text" id="q1_district" placeholder="e.g., Dong Anh, Gia Lam, Me Linh...">
+    </div>
+
+    <div class="form-group">
+      <label class="question-label">2. What is your relationship to the child?</label>
+      <div class="radio-group">
+        <label class="radio-item"><input type="radio" name="q2_rel" value="Father" onchange="toggleQ2Other()"> Father</label>
+        <label class="radio-item"><input type="radio" name="q2_rel" value="Mother" onchange="toggleQ2Other()"> Mother</label>
+        <label class="radio-item" style="flex-direction: column; align-items: stretch; gap: 10px;">
+          <span style="display: flex; align-items: center;">
+            <input type="radio" name="q2_rel" id="q2_rel_other" value="Other" onchange="toggleQ2Other()"> Other (please specify)
+          </span>
+          <input type="text" id="q2_other_text" placeholder="e.g., Grandfather, Grandmother, Aunt, Uncle, Legal Guardian..." oninput="handleQ2OtherInput()">
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="question-label">3. Approximately what is your household’s <strong>average total income</strong> from all sources per month?</label>
+      <div class="radio-group">
+        <label class="radio-item"><input type="radio" name="q3_inc" value="Less than 5 million VND"> Less than 5 million VND</label>
+        <label class="radio-item"><input type="radio" name="q3_inc" value="5 million to less than 10 million VND"> 5 million to less than 10 million VND</label>
+        <label class="radio-item"><input type="radio" name="q3_inc" value="10 million to less than 15 million VND"> 10 million to less than 15 million VND</label>
+        <label class="radio-item"><input type="radio" name="q3_inc" value="15 million to less than 20 million VND"> 15 million to less than 20 million VND</label>
+        <label class="radio-item"><input type="radio" name="q3_inc" value="20 million VND or more"> 20 million VND or more</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="question-label">4. How would you describe your household's monthly income over the past 12 months?</label>
+      <div class="radio-group">
+        <label class="radio-item"><input type="radio" name="q4_stab" value="Mostly stable"> Mostly stable</label>
+        <label class="radio-item"><input type="radio" name="q4_stab" value="Somewhat variable"> Somewhat variable</label>
+        <label class="radio-item"><input type="radio" name="q4_stab" value="Highly variable"> Highly variable</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="question-label">5. Which grade is your child currently attending?</label>
+      <div class="radio-group">
+        <label class="radio-item"><input type="radio" name="q5_grade" value="Grade 1"> Grade 1</label>
+        <label class="radio-item"><input type="radio" name="q5_grade" value="Grade 2"> Grade 2</label>
+        <label class="radio-item"><input type="radio" name="q5_grade" value="Grade 3"> Grade 3</label>
+        <label class="radio-item"><input type="radio" name="q5_grade" value="Grade 4"> Grade 4</label>
+        <label class="radio-item"><input type="radio" name="q5_grade" value="Grade 5"> Grade 5</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="question-label">6. Does your child currently attend any English classes outside of primary school? (e.g., private tutoring with school teachers, small group classes, English centers, etc.)</label>
+      <div class="radio-group">
+        <label class="radio-item"><input type="radio" name="q6_ext" value="Yes" onchange="toggleQ7()"> Yes</label>
+        <label class="radio-item"><input type="radio" name="q6_ext" value="No" onchange="toggleQ7()"> No</label>
+      </div>
+    </div>
+
+    <div class="form-group" id="q7_group" style="display: none;">
+      <label class="question-label">7. If YES, approximately how much does your household spend on your child's English learning <strong>each month</strong>?</label>
+      <div class="radio-group">
+        <label class="radio-item"><input type="radio" name="q7_bud" value="Less than 480,000 VND"> Less than 480,000 VND</label>
+        <label class="radio-item"><input type="radio" name="q7_bud" value="481,000 - 800,000 VND"> 481,000 – 800,000 VND</label>
+        <label class="radio-item"><input type="radio" name="q7_bud" value="801,000 - 1,200,000 VND"> 801,000 – 1,200,000 VND</label>
+        <label class="radio-item"><input type="radio" name="q7_bud" value="More than 1,200,000 VND"> More than 1,200,000 VND</label>
+      </div>
+    </div>
+
+    <div class="btn-nav-group">
+      <button class="btn btn-secondary" onclick="prevStep(1)">« BACK</button>
+      <button class="btn btn-primary" onclick="nextStep(1)">NEXT »</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: LIKERT ATTITUDES (PART 2) -->
+  <div class="step-page" id="step2">
+    <h2>Part 2: Attitudes and Priorities Regarding English Learning</h2>
+    <p style="margin-bottom:15px;">Please indicate your level of agreement with each of the following statements on a scale from 1 (Strongly disagree) to 5 (Strongly agree).</p>
+    <div id="likertContainer"></div>
+    
+    <div class="btn-nav-group">
+      <button class="btn btn-secondary" onclick="prevStep(2)">« BACK</button>
+      <button class="btn btn-primary" onclick="nextStep(2)">NEXT »</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: PART 3 INTRO & FIXED CONDITIONS -->
+  <div class="step-page" id="step3">
+    <h2>Part 3: Choice-Based Conjoint Tasks</h2>
+    <p>In this section, you will act as the primary decision-maker choosing an outside English program for your child. You will be presented with <strong>6 hypothetical choice scenarios</strong>. In each scenario, please evaluate the two offered programs (Program A vs. Program B) and select the single program you would <strong>most prefer</strong> for your child.</p>
+
+    <div class="info-card">
+      <h3 style="margin-top:0; margin-bottom:10px; font-size: 17px;">Conditions held constant across all program options:</h3>
+      <p style="font-size:16px; margin-bottom:12px;"><em>To ensure a fair comparison, all educational options in this survey strictly adhere to the following 5 fixed standards:</em></p>
+      <ul style="list-style-type: none; padding-left: 0; margin-left: 0;">
+        <li style="margin-bottom: 10px;"><strong>1. Session schedule:</strong> Eight 90-minute sessions per period, typically 2 sessions per week.</li>
+        <li style="margin-bottom: 10px;"><strong>2. Class size:</strong> Maximum of 20 children per class.</li>
+        <li style="margin-bottom: 10px;"><strong>3. Teacher standards:</strong> The same stated teacher qualification and experience requirements across all options.</li>
+        <li style="margin-bottom: 10px;"><strong>4. Facilities &amp; safety:</strong> The same stated basic classroom equipment, learning materials, and safety conditions.</li>
+        <li style="margin-bottom: 0;"><strong>5. Pricing transparency:</strong> No additional compulsory fees beyond those shown (no hidden registration, textbook, or uniform fees).</li>
+      </ul>
+    </div>
+
+    <div class="btn-nav-group">
+      <button class="btn btn-secondary" onclick="prevStep(3)">« BACK</button>
+      <button class="btn btn-primary" onclick="nextStep(3)">NEXT »</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: PART 3 ATTRIBUTE EXPLANATIONS -->
+  <div class="step-page" id="step4">
+    <h2>Attribute Definitions and Level Specifications</h2>
+    <p style="margin-bottom:15px;"><em>Please review the list below to understand the meaning of each feature before proceeding to the choice tasks:</em></p>
+
+    <ul class="level-list">
+      <li class="level-item">
+        <span class="level-title">1. Baseline Tuition (per period of 8 sessions):</span>
+        <ul class="level-sub-list">
+          <li>480,000 VND / period (approx. 60,000 VND/session)</li>
+          <li>640,000 VND / period (approx. 80,000 VND/session)</li>
+          <li>800,000 VND / period (approx. 100,000 VND/session)</li>
+          <li>960,000 VND / period (approx. 120,000 VND/session)</li>
+          <li>1,200,000 VND / period (approx. 150,000 VND/session)</li>
+        </ul>
+      </li>
+
+      <li class="level-item">
+        <span class="level-title">2. Payment Schedule &amp; Package Discount:</span>
+        <ul class="level-sub-list">
+          <li>Pay each period (8 sessions at a time), no discount applied.</li>
+          <li>Pay 3 periods upfront in a single payment (24 sessions), receive a 5% total discount.</li>
+          <li>Pay 6 periods upfront in a single payment (48 sessions), receive a 10% total discount.</li>
+        </ul>
+      </li>
+
+      <li class="level-item">
+        <span class="level-title">3. Deposit &amp; Early-Withdrawal Policy:</span>
+        <ul class="level-sub-list">
+          <li>No upfront deposit required, parents only pay standard tuition fees.</li>
+          <li>Half-period tuition deposit (4 sessions), which is credited toward the final period's tuition, but forfeited if the student drops out midway.</li>
+          <li>One-period tuition deposit (8 sessions), which is credited toward the final period's tuition, but forfeited if the student drops out midway.</li>
+        </ul>
+      </li>
+
+      <li class="level-item">
+        <span class="level-title">4. Main Learning Focus:</span>
+        <ul class="level-sub-list">
+          <li>Grammar review &amp; school curriculum alignment.</li>
+          <li>Communicative focus &amp; natural response.</li>
+          <li>Learning through games &amp; group activities.</li>
+          <li>Phonics &amp; foundational literacy.</li>
+        </ul>
+      </li>
+
+      <li class="level-item">
+        <span class="level-title">5. Class Location:</span>
+        <ul class="level-sub-list">
+          <li>A classroom at a local community house / cultural center.</li>
+          <li>A classroom at a private English center.</li>
+          <li>A private classroom at the teacher's home.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="btn-nav-group">
+      <button class="btn btn-secondary" onclick="prevStep(4)">« BACK</button>
+      <button class="btn btn-primary" onclick="nextStep(4)">START CHOICE TASKS »</button>
+    </div>
+  </div>
+
+  <!-- DYNAMIC TASK STEPS (STEPS 5 TO 10 FOR TASKS 1 TO 6) -->
+  <div id="taskStepsContainer"></div>
+
+  <!-- STEP 11: THANK YOU -->
+  <div class="step-page" id="step11">
+    <div style="text-align: center; padding: 30px 12px;">
+      <h1 style="color: var(--primary); font-size: 25px; margin-bottom: 16px;">✓ THANK YOU VERY MUCH!</h1>
+      <p style="font-size: 16px; color: var(--text); margin-bottom: 14px;">Thank you for taking your valuable time to complete this survey.</p>
+      <p style="font-size: 16px; color: var(--text); margin-bottom: 0;">We wish you and your family good health and happiness!</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwr0NiIpGVABUJp-BDh79UDl5xyFSyQpPFOED8q9sGyWfx9jwT6M28HWoSovj1p3SfoXQ/exec";
+
+  // 10 CONJOINT DESIGN VERSIONS (60 REAL TASKS FROM EXPERIMENTAL DESIGN - ENGLISH)
+  const CONJOINT_QUESTIONS = {
+  "1": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   576,000 VND/period)<br>Immediate payment: 3,456,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   640,000 VND",
+        "deposit": "0.5-period deposit:   320,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   608,000 VND/period)<br>Immediate payment: 1,824,000 VND",
+        "deposit": "0.5-period deposit:   320,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   800,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   608,000 VND/period)<br>Immediate payment: 1,824,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "0.5-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private classroom at teacher's home"
+      }
+    }
+  ],
+  "2": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   640,000 VND",
+        "deposit": "1-period deposit:   640,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   864,000 VND/period)<br>Immediate payment: 5,184,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   864,000 VND/period)<br>Immediate payment: 5,184,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   608,000 VND/period)<br>Immediate payment: 1,824,000 VND",
+        "deposit": "1-period deposit:   640,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "1-period deposit:   960,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   576,000 VND/period)<br>Immediate payment: 3,456,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "1-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "1-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   800,000 VND",
+        "deposit": "0.5-period deposit:   400,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      }
+    }
+  ],
+  "3": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   760,000 VND/period)<br>Immediate payment: 2,280,000 VND",
+        "deposit": "1-period deposit:   800,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   608,000 VND/period)<br>Immediate payment: 1,824,000 VND",
+        "deposit": "1-period deposit:   640,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "0.5-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "1-period deposit:   960,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "1-period deposit:   960,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      }
+    }
+  ],
+  "4": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "0.5-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   608,000 VND/period)<br>Immediate payment: 1,824,000 VND",
+        "deposit": "1-period deposit:   640,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   608,000 VND/period)<br>Immediate payment: 1,824,000 VND",
+        "deposit": "0.5-period deposit:   320,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   800,000 VND",
+        "deposit": "0.5-period deposit:   400,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   576,000 VND/period)<br>Immediate payment: 3,456,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   608,000 VND/period)<br>Immediate payment: 1,824,000 VND",
+        "deposit": "0.5-period deposit:   320,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "1-period deposit:   960,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private classroom at teacher's home"
+      }
+    }
+  ],
+  "5": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   640,000 VND",
+        "deposit": "1-period deposit:   640,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   720,000 VND/period)<br>Immediate payment: 4,320,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment: 1,200,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "1-period deposit:   960,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   760,000 VND/period)<br>Immediate payment: 2,280,000 VND",
+        "deposit": "1-period deposit:   800,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment: 1,200,000 VND",
+        "deposit": "0.5-period deposit:   600,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "1-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      }
+    }
+  ],
+  "6": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   800,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "0.5-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   608,000 VND/period)<br>Immediate payment: 1,824,000 VND",
+        "deposit": "0.5-period deposit:   320,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   720,000 VND/period)<br>Immediate payment: 4,320,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   864,000 VND/period)<br>Immediate payment: 5,184,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   640,000 VND",
+        "deposit": "1-period deposit:   640,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      }
+    }
+  ],
+  "7": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "0.5-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   800,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   760,000 VND/period)<br>Immediate payment: 2,280,000 VND",
+        "deposit": "0.5-period deposit:   400,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   640,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   576,000 VND/period)<br>Immediate payment: 3,456,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment: 1,200,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   576,000 VND/period)<br>Immediate payment: 3,456,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private classroom at teacher's home"
+      }
+    }
+  ],
+  "8": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "0.5-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   800,000 VND",
+        "deposit": "0.5-period deposit:   400,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment: 1,200,000 VND",
+        "deposit": "0.5-period deposit:   600,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   760,000 VND/period)<br>Immediate payment: 2,280,000 VND",
+        "deposit": "0.5-period deposit:   400,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "0.5-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private classroom at teacher's home"
+      }
+    }
+  ],
+  "9": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   576,000 VND/period)<br>Immediate payment: 3,456,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   760,000 VND/period)<br>Immediate payment: 2,280,000 VND",
+        "deposit": "0.5-period deposit:   400,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   720,000 VND/period)<br>Immediate payment: 4,320,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   912,000 VND/period)<br>Immediate payment: 2,736,000 VND",
+        "deposit": "1-period deposit:   960,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to 1,140,000 VND/period)<br>Immediate payment: 3,420,000 VND",
+        "deposit": "0.5-period deposit:   600,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "1-period deposit:   480,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   432,000 VND/period)<br>Immediate payment: 2,592,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to 1,140,000 VND/period)<br>Immediate payment: 3,420,000 VND",
+        "deposit": "0.5-period deposit:   600,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   760,000 VND/period)<br>Immediate payment: 2,280,000 VND",
+        "deposit": "1-period deposit:   800,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private English center"
+      }
+    }
+  ],
+  "10": [
+    {
+      "task": 1,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   480,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private English center"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 2,
+      "Class_A": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "0.5-period deposit:   240,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 3,
+      "Class_A": {
+        "tuition": "480,000 VND/period ( 60,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to   456,000 VND/period)<br>Immediate payment: 1,368,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to 1,080,000 VND/period)<br>Immediate payment: 6,480,000 VND",
+        "deposit": "1-period deposit: 1,200,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Community center / Cultural house"
+      }
+    },
+    {
+      "task": 4,
+      "Class_A": {
+        "tuition": "800,000 VND/period (100,000 VND/session)",
+        "payment": "Upfront for 6 periods (10% discount to   720,000 VND/period)<br>Immediate payment: 4,320,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Community center / Cultural house"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "1-period deposit:   960,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 5,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to 1,140,000 VND/period)<br>Immediate payment: 3,420,000 VND",
+        "deposit": "No deposit required (0 VND)",
+        "focus": "Game-based learning & Group activities",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "640,000 VND/period ( 80,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   640,000 VND",
+        "deposit": "1-period deposit:   640,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Communicative focus & Natural response",
+        "location": "Private English center"
+      }
+    },
+    {
+      "task": 6,
+      "Class_A": {
+        "tuition": "1,200,000 VND/period (150,000 VND/session)",
+        "payment": "Upfront for 3 periods (5% discount to 1,140,000 VND/period)<br>Immediate payment: 3,420,000 VND",
+        "deposit": "0.5-period deposit:   600,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Grammar review & School curriculum alignment",
+        "location": "Private classroom at teacher's home"
+      },
+      "Class_B": {
+        "tuition": "960,000 VND/period (120,000 VND/session)",
+        "payment": "Pay per period (no discount)<br>Immediate payment:   960,000 VND",
+        "deposit": "1-period deposit:   960,000 VND (deducted from final period; forfeited if dropout)",
+        "focus": "Phonics standardization & Foundation literacy",
+        "location": "Community center / Cultural house"
+      }
+    }
+  ]
+};
+
+  const LIKERT_STATEMENTS = [
+    { id: "l1", key: "l1_communication", text: "L1. I want my child to be able to use English in everyday situations, not only in school tests." },
+    { id: "l2", key: "l2_progress", text: "L2. If my child enjoys the lessons but shows little progress, I would look for another program." },
+    { id: "l3", key: "l3_speaking", text: "L3. I prefer an English class that focuses on speaking and listening rather than grammar and written exercises." },
+    { id: "l4", key: "l4_curriculum", text: "L4. I prefer an English class that follows the school curriculum and helps with homework and test preparation." },
+    { id: "l5", key: "l5_liquidity", text: "L5. Even when total tuition is affordable, paying several periods at once is difficult for my household budget." },
+    { id: "l6", key: "l6_advance", text: "L6. I would feel comfortable paying for several months of English tuition in advance if it reduced the overall cost." },
+    { id: "l7", key: "l7_travel", text: "L7. A program that requires a long travel time is less attractive to me, even if the tuition is lower." },
+    { id: "l8", key: "l8_location_conf", text: "L8. I feel less confident in the quality of an English class held at a community house than one held at a private English center." }
+  ];
+
+  let currentStep = 0;
+  let selectedVersion = 1;
+  let surveyAnswers = {};
+  let isSubmitting = false;
+
+  // INITIALIZATION
+  window.onload = function() {
+    selectedVersion = Math.floor(Math.random() * 10) + 1;
+    surveyAnswers.language = "EN";
+    surveyAnswers.version = selectedVersion;
+    surveyAnswers.respondent_id = "RESP_" + Date.now() + "_" + Math.floor(100 + Math.random() * 900);
+    
+    renderLikertCards();
+    renderTaskSteps();
+    updateProgressBar();
+  };
+
+  function toggleQ2Other() {
+    const rel = document.querySelector('input[name="q2_rel"]:checked');
+    const otherInput = document.getElementById("q2_other_text");
+    if (rel && rel.value === "Other") {
+      otherInput.focus();
+    } else if (rel) {
+      otherInput.value = "";
+    }
+  }
+
+  function handleQ2OtherInput() {
+    const otherInput = document.getElementById("q2_other_text");
+    const otherRadio = document.getElementById("q2_rel_other");
+    if (otherInput.value.trim().length > 0 && otherRadio) {
+      otherRadio.checked = true;
+    }
+  }
+
+  function toggleQ7() {
+    const ext = document.querySelector('input[name="q6_ext"]:checked');
+    const q7Group = document.getElementById("q7_group");
+    if (ext && ext.value === "Yes") {
+      q7Group.style.display = "block";
+    } else {
+      q7Group.style.display = "none";
+      document.querySelectorAll('input[name="q7_bud"]').forEach(r => r.checked = false);
+    }
+  }
+
+  function renderLikertCards() {
+    const container = document.getElementById("likertContainer");
+    container.innerHTML = "";
+    LIKERT_STATEMENTS.forEach((item) => {
+      let card = document.createElement("div");
+      card.className = "likert-card";
+      card.innerHTML = `
+        <div class="likert-statement">${item.text}</div>
+        <div class="likert-options">
+          <label class="likert-option-label"><input type="radio" name="${item.id}" value="1"> 1 - Strongly disagree</label>
+          <label class="likert-option-label"><input type="radio" name="${item.id}" value="2"> 2 - Disagree</label>
+          <label class="likert-option-label"><input type="radio" name="${item.id}" value="3"> 3 - Neither agree nor disagree</label>
+          <label class="likert-option-label"><input type="radio" name="${item.id}" value="4"> 4 - Agree</label>
+          <label class="likert-option-label"><input type="radio" name="${item.id}" value="5"> 5 - Strongly agree</label>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function renderTaskSteps() {
+    const container = document.getElementById("taskStepsContainer");
+    container.innerHTML = "";
+    const tasks = CONJOINT_QUESTIONS[selectedVersion] || CONJOINT_QUESTIONS[1];
+    const attrSpecs = [
+      { key: "tuition", label: "Baseline Tuition", isLast: false },
+      { key: "payment", label: "Payment Schedule", isLast: false },
+      { key: "deposit", label: "Deposit Policy", isLast: false },
+      { key: "focus", label: "Learning Focus", isLast: false },
+      { key: "location", label: "Class Location", isLast: true }
+    ];
+
+    tasks.forEach((t, i) => {
+      let stepIndex = 5 + i; // Step 5 to 10
+      let stepDiv = document.createElement("div");
+      stepDiv.className = "step-page";
+      stepDiv.id = `step${stepIndex}`;
+
+      let rowsHtml = `
+        <div class="conjoint-cell cell-header class-a-t${t.task}" onclick="selectClass(${t.task}, 'Class A')">
+          <div class="card-header">PROGRAM A</div>
+        </div>
+        <div class="conjoint-cell cell-header class-b-t${t.task}" onclick="selectClass(${t.task}, 'Class B')">
+          <div class="card-header">PROGRAM B</div>
+        </div>
+      `;
+
+      attrSpecs.forEach((attr) => {
+        const lastCls = attr.isLast ? " cell-attr-last" : "";
+        rowsHtml += `
+          <div class="conjoint-cell cell-attr${lastCls} class-a-t${t.task}" onclick="selectClass(${t.task}, 'Class A')">
+            <div class="attr-name">${attr.label}</div>
+            <div class="attr-val">${t.Class_A[attr.key]}</div>
+          </div>
+          <div class="conjoint-cell cell-attr${lastCls} class-b-t${t.task}" onclick="selectClass(${t.task}, 'Class B')">
+            <div class="attr-name">${attr.label}</div>
+            <div class="attr-val">${t.Class_B[attr.key]}</div>
+          </div>
+        `;
+      });
+
+      rowsHtml += `
+        <div class="conjoint-cell cell-footer class-a-t${t.task}" onclick="selectClass(${t.task}, 'Class A')">
+          <button type="button" class="btn-select">SELECT PROGRAM A</button>
+        </div>
+        <div class="conjoint-cell cell-footer class-b-t${t.task}" onclick="selectClass(${t.task}, 'Class B')">
+          <button type="button" class="btn-select">SELECT PROGRAM B</button>
+        </div>
+      `;
+
+      stepDiv.innerHTML = `
+        <h2>Task ${t.task} of 6: Program Selection</h2>
+        <p>If these were the only two English programs available, which one would you prefer for your child: <strong>Program A</strong> or <strong>Program B</strong>?</p>
+
+        <div class="conjoint-grid">
+          ${rowsHtml}
+        </div>
+
+        <div class="btn-nav-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep(${stepIndex})">« BACK</button>
+          ${stepIndex === 10 
+            ? `<button type="button" id="submitBtn" class="btn btn-primary" onclick="submitSurvey()">COMPLETE &amp; SUBMIT ✓</button>` 
+            : `<button type="button" class="btn btn-primary" onclick="nextStep(${stepIndex})">NEXT »</button>`}
+        </div>
+      `;
+      container.appendChild(stepDiv);
+    });
+  }
+
+  function selectClass(taskNum, choice) {
+    surveyAnswers[`task_${taskNum}`] = choice;
+    const cellsA = document.querySelectorAll(`.class-a-t${taskNum}`);
+    const cellsB = document.querySelectorAll(`.class-b-t${taskNum}`);
+    if (choice === 'Class A') {
+      cellsA.forEach(el => el.classList.add('selected'));
+      cellsB.forEach(el => el.classList.remove('selected'));
+    } else {
+      cellsB.forEach(el => el.classList.add('selected'));
+      cellsA.forEach(el => el.classList.remove('selected'));
+    }
+    hideAlert();
+  }
+
+  function validateStep(step) {
+    if (step === 1) {
+      let dist = document.getElementById("q1_district").value.trim();
+      let rel = document.querySelector('input[name="q2_rel"]:checked');
+      let relOther = document.getElementById("q2_other_text").value.trim();
+      let inc = document.querySelector('input[name="q3_inc"]:checked');
+      let stab = document.querySelector('input[name="q4_stab"]:checked');
+      let grade = document.querySelector('input[name="q5_grade"]:checked');
+      let ext = document.querySelector('input[name="q6_ext"]:checked');
+      let bud = document.querySelector('input[name="q7_bud"]:checked');
+
+      if (!dist || !rel || !inc || !stab || !grade || !ext) {
+        showAlert("⚠️ Please complete all questions in Part 1 before proceeding.");
+        return false;
+      }
+      if (rel.value === "Other" && !relOther) {
+        showAlert("⚠️ Please specify your relationship to the child in Question 2.");
+        return false;
+      }
+      if (ext.value === "Yes" && !bud) {
+        showAlert("⚠️ Please select your average monthly spending in Question 7 before proceeding.");
+        return false;
+      }
+
+      // Keys match exact Google Apps Script doPost(e) column mapping
+      surveyAnswers.q1_district = dist;
+      surveyAnswers.q2_relationship = (rel.value === "Other") ? `Other: ${relOther}` : rel.value;
+      surveyAnswers.q3_income = inc.value;
+      surveyAnswers.q4_stability = stab.value;
+      surveyAnswers.q5_grade = grade.value;
+      surveyAnswers.q6_external = ext.value;
+      surveyAnswers.q7_spending = (ext.value === "Yes" && bud) ? bud.value : "Not applicable (No outside class)";
+    }
+
+    if (step === 2) {
+      for (let i = 0; i < LIKERT_STATEMENTS.length; i++) {
+        let item = LIKERT_STATEMENTS[i];
+        let sel = document.querySelector(`input[name="${item.id}"]:checked`);
+        if (!sel) {
+          showAlert(`⚠️ Please indicate your agreement for statement L${i + 1} before proceeding.`);
+          return false;
+        }
+        surveyAnswers[item.key] = sel.value;
+      }
+    }
+
+    if (step >= 5 && step <= 10) {
+      let taskNum = step - 4;
+      if (!surveyAnswers[`task_${taskNum}`]) {
+        showAlert(`⚠️ Please select either Program A or Program B in Task ${taskNum} before proceeding.`);
+        return false;
+      }
+    }
+
+    hideAlert();
+    return true;
+  }
+
+  function nextStep(step) {
+    if (!validateStep(step)) return;
+    document.getElementById(`step${step}`).classList.remove("active");
+    currentStep = step + 1;
+    document.getElementById(`step${currentStep}`).classList.add("active");
+    updateProgressBar();
+    window.scrollTo(0, 0);
+  }
+
+  function prevStep(step) {
+    hideAlert();
+    document.getElementById(`step${step}`).classList.remove("active");
+    currentStep = step - 1;
+    document.getElementById(`step${currentStep}`).classList.add("active");
+    updateProgressBar();
+    window.scrollTo(0, 0);
+  }
+
+  function submitSurvey() {
+    if (isSubmitting) return;
+    if (!validateStep(10)) return;
+
+    isSubmitting = true;
+    const submitBtn = document.getElementById("submitBtn");
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Submitting responses...";
+    }
+
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(surveyAnswers)
+    })
+    .then(() => {
+      document.getElementById("step10").classList.remove("active");
+      currentStep = 11;
+      document.getElementById("step11").classList.add("active");
+      updateProgressBar();
+      window.scrollTo(0, 0);
+    })
+    .catch((err) => {
+      console.error("Submit error:", err);
+      isSubmitting = false;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "COMPLETE & SUBMIT ✓";
+      }
+      showAlert("⚠️ Unstable network connection. Please check your internet and try submitting again.");
+    });
+  }
+
+  function updateProgressBar() {
+    let percent = Math.round((currentStep / 11) * 100);
+    document.getElementById("progressBar").style.width = percent + "%";
+    document.getElementById("progressPercent").innerText = percent + "%";
+
+    const labels = {
+      0: "Introduction",
+      1: "Part 1 / 3: Background Info",
+      2: "Part 2 / 3: Attitudes & Priorities",
+      3: "Part 3 / 3: Fixed Standards",
+      4: "Part 3 / 3: Feature Definitions",
+      5: "Part 3 / 3: Task 1 of 6",
+      6: "Part 3 / 3: Task 2 of 6",
+      7: "Part 3 / 3: Task 3 of 6",
+      8: "Part 3 / 3: Task 4 of 6",
+      9: "Part 3 / 3: Task 5 of 6",
+      10: "Part 3 / 3: Task 6 of 6",
+      11: "Completed"
+    };
+    document.getElementById("progressLabel").innerText = labels[currentStep] || "";
+  }
+
+  function showAlert(msg) {
+    const box = document.getElementById("alertBox");
+    box.innerText = msg;
+    box.style.display = "block";
+    window.scrollTo(0, 0);
+  }
+
+  function hideAlert() {
+    document.getElementById("alertBox").style.display = "none";
+  }
+</script>
+</body>
+</html>
