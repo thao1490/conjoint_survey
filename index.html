@@ -472,7 +472,7 @@
     <div class="info-card">
       <p style="margin-bottom: 8px;"><strong>Survey Information:</strong></p>
       <ul style="list-style-type: none; padding-left: 0; margin-left: 0;">
-        <li style="margin-bottom: 6px;">⏱️ <strong>Estimated completion time:</strong> Approximately 5 – 7 minutes.</li>
+        <li style="margin-bottom: 6px;">⏱️ <strong>Estimated completion time:</strong> Approximately 4 – 6 minutes.</li>
         <li style="margin-bottom: 0;">🔒 <strong>Data Privacy &amp; Confidentiality:</strong> All responses are strictly anonymous, encrypted, and used exclusively for academic research purposes.</li>
       </ul>
     </div>
@@ -1743,8 +1743,7 @@
   function showAlreadyCompletedScreen() {
     document.querySelectorAll(".step-page").forEach(el => el.classList.remove("active"));
     document.getElementById("thankYouTitle").innerText = "✓ YOU HAVE ALREADY COMPLETED THIS SURVEY";
-    document.getElementById("thankYouMsg1").innerText = "Our records show that this device/browser has already submitted a response. Each parent only needs to participate once.";
-    document.getElementById("thankYouMsg2").innerText = "Thank you very much for your kind support and participation!";
+    document.getElementById("thankYouMsg1").innerText = "Thank you very much for your kind support and participation!";
     currentStep = 11;
     document.getElementById("step11").classList.add("active");
     updateProgressBar();
